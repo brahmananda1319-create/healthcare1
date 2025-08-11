@@ -1,0 +1,1230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arvix Laboratory - Basic Health Tests & Medical Services - Bihar</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .gradient-bg-alt {
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+        }
+        .card-hover {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .card-hover:hover {
+            transform: translateY(-12px) scale(1.02);
+            box-shadow: 0 32px 64px -12px rgba(0, 0, 0, 0.25);
+        }
+        .test-card {
+            background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
+            border: 1px solid #e2e8f0;
+            position: relative;
+            overflow: hidden;
+        }
+        .test-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(79,70,229,0.1), transparent);
+            transition: left 0.8s ease;
+        }
+        .test-card:hover::before {
+            left: 100%;
+        }
+        .price-badge {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            transform: rotate(3deg);
+        }
+        .feature-icon {
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            transition: all 0.3s ease;
+        }
+        .feature-icon:hover {
+            background: linear-gradient(135deg, #1d4ed8 0%, #3b82f6 100%);
+            transform: scale(1.1);
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.6);
+            backdrop-filter: blur(8px);
+        }
+        .modal.show {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-content {
+            background: white;
+            margin: 20px;
+            padding: 0;
+            border-radius: 24px;
+            width: 95%;
+            max-width: 700px;
+            max-height: 95vh;
+            overflow-y: auto;
+            animation: modalSlideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 32px 64px -12px rgba(0, 0, 0, 0.4);
+        }
+        @keyframes modalSlideIn {
+            from {
+                transform: translateY(-80px) scale(0.9);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0) scale(1);
+                opacity: 1;
+            }
+        }
+        .form-input {
+            transition: all 0.3s ease;
+            background: linear-gradient(145deg, #ffffff, #f8fafc);
+        }
+        .form-input:focus {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 25px -5px rgba(79, 70, 229, 0.15), 0 8px 10px -6px rgba(79, 70, 229, 0.1);
+            background: #ffffff;
+        }
+        .success-message {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        }
+        .floating-elements {
+            position: relative;
+        }
+        .floating-elements::before {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: linear-gradient(45deg, #667eea20, #764ba220);
+            border-radius: 50%;
+            top: 10%;
+            right: 5%;
+            animation: float 8s ease-in-out infinite;
+        }
+        .floating-elements::after {
+            content: '';
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(45deg, #4f46e520, #7c3aed20);
+            border-radius: 50%;
+            bottom: 15%;
+            left: 5%;
+            animation: float 10s ease-in-out infinite reverse;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-30px) rotate(10deg); }
+        }
+        .bihar-accent {
+            border-left: 5px solid #f59e0b;
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+        }
+        .pulse-effect {
+            animation: pulse 3s infinite;
+        }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(59, 130, 246, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); }
+        }
+        .smart-btn {
+            position: relative;
+            overflow: hidden;
+        }
+        .smart-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.6s;
+        }
+        .smart-btn:hover::before {
+            left: 100%;
+        }
+        .test-price {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            color: white;
+            font-weight: 800;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        .header-smart {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+        .glow-effect {
+            box-shadow: 0 0 30px rgba(79, 70, 229, 0.3);
+        }
+        .testimonial-card {
+            background: linear-gradient(145deg, #ffffff 0%, #f1f5f9 100%);
+            border: 2px solid transparent;
+            background-clip: padding-box;
+        }
+        .testimonial-card:hover {
+            border: 2px solid rgba(79, 70, 229, 0.2);
+        }
+        @media print {
+            .modal { display: none !important; }
+            body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            .card-hover { transform: none !important; }
+            .floating-elements::before, .floating-elements::after { display: none; }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Smart Header -->
+    <header class="header-smart shadow-2xl relative z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-6">
+                <div class="flex items-center">
+                    <div class="pulse-effect">
+                        <i class="fas fa-flask text-4xl text-blue-600 mr-4"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-3xl font-black text-gray-800">Arvix Laboratory</h1>
+                        <p class="text-sm text-gray-600 font-medium">Bihar's Modern Healthcare Hub</p>
+                    </div>
+                </div>
+                
+                <!-- Contact Info -->
+                <div class="hidden md:flex items-center space-x-6">
+                    <div class="flex items-center bg-gradient-to-r from-green-500 to-emerald-500 text-white px-6 py-3 rounded-full glow-effect">
+                        <i class="fas fa-phone-alt mr-2"></i>
+                        <a href="tel:7217851872" class="font-bold text-lg hover:text-yellow-200 transition">7217851872</a>
+                    </div>
+                    <button class="smart-btn bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-3 rounded-full hover:from-blue-700 hover:to-purple-700 transition shadow-xl font-bold">
+                        <i class="fas fa-calendar-check mr-2"></i>Book Test Now
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Mobile Contact -->
+            <div class="md:hidden text-center pb-4">
+                <a href="tel:7217851872" class="inline-flex items-center bg-gradient-to-r from-green-500 to-emerald-500 text-white px-6 py-3 rounded-full font-bold">
+                    <i class="fas fa-phone-alt mr-2"></i>7217851872
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Enhanced Hero Section -->
+    <section class="gradient-bg py-24 floating-elements">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <div class="text-white">
+                    <div class="inline-flex items-center bg-white bg-opacity-20 px-6 py-3 rounded-full mb-8">
+                        <i class="fas fa-map-marker-alt mr-3 text-yellow-300 text-lg"></i>
+                        <span class="font-bold text-lg">Serving All Bihar Districts</span>
+                    </div>
+                    <h2 class="text-6xl font-black mb-8 leading-tight">
+                        Quick & Accurate 
+                        <span class="text-yellow-300">Health Tests</span>
+                    </h2>
+                    <p class="text-2xl mb-10 text-blue-100 font-medium leading-relaxed">
+                        Basic health screenings with instant results. From blood tests to diabetic panels - all at your doorstep across Bihar.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-6">
+                        <button onclick="scrollToTests()" class="smart-btn bg-white text-blue-600 px-10 py-5 rounded-2xl font-black text-lg hover:bg-gray-100 transition shadow-2xl">
+                            <i class="fas fa-vial mr-3"></i>View Tests
+                        </button>
+                        <button class="smart-btn border-3 border-white text-white px-10 py-5 rounded-2xl font-black text-lg hover:bg-white hover:text-blue-600 transition">
+                            <i class="fas fa-phone mr-3"></i>Call Now
+                        </button>
+                    </div>
+                </div>
+                <div class="relative">
+                    <img src="https://www.indushealthplus.com/media/article_img/comprehensive-health-checkup-thumb.jpg" alt="Health Testing" class="rounded-3xl shadow-2xl w-full h-[500px] object-cover">
+                    <div class="absolute -bottom-8 -left-8 bg-white p-8 rounded-2xl shadow-2xl bihar-accent">
+                        <div class="flex items-center">
+                            <i class="fas fa-heartbeat text-red-500 text-3xl mr-4"></i>
+                            <div>
+                                <p class="font-black text-gray-800 text-xl">25+ Tests</p>
+                                <p class="text-gray-600 font-medium">Basic Health Panel</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="absolute -top-8 -right-8 price-badge text-white p-6 rounded-2xl shadow-2xl">
+                        <div class="text-center">
+                            <p class="font-black text-2xl">₹199</p>
+                            <p class="text-sm opacity-90 font-medium">Starting from</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Basic Health Tests Section -->
+    <section id="tests" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-20">
+                <div class="inline-flex items-center bg-blue-100 text-blue-800 px-6 py-3 rounded-full mb-6">
+                    <i class="fas fa-microscope mr-3"></i>
+                    <span class="font-bold text-lg">Basic Health Tests</span>
+                </div>
+                <h2 class="text-5xl font-black text-gray-800 mb-6">Simple. Fast. Affordable Tests</h2>
+                <p class="text-2xl text-gray-600 max-w-4xl mx-auto font-medium">Essential health screenings for early detection and preventive care across Bihar</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                <!-- Complete Blood Count -->
+                <div class="test-card rounded-3xl p-8 card-hover">
+                    <div class="relative mb-6">
+                        <div class="w-20 h-20 bg-gradient-to-br from-red-500 to-pink-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-tint text-white text-2xl"></i>
+                        </div>
+                        <div class="test-price absolute top-0 right-0 px-4 py-2 rounded-full text-lg transform rotate-12">
+                            ₹299
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-black text-gray-800 mb-3 text-center">Complete Blood Count (CBC)</h3>
+                    <p class="text-gray-600 mb-6 text-center">Essential blood analysis to check overall health status</p>
+                    <div class="space-y-3 mb-6">
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-green-500 mr-3"></i>
+                            <span class="text-gray-700 font-medium">Red Blood Cell Count</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-green-500 mr-3"></i>
+                            <span class="text-gray-700 font-medium">White Blood Cell Count</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-green-500 mr-3"></i>
+                            <span class="text-gray-700 font-medium">Platelet Count</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-green-500 mr-3"></i>
+                            <span class="text-gray-700 font-medium">Home Collection</span>
+                        </div>
+                    </div>
+                    <button onclick="openBookingModal('Complete Blood Count (CBC)', 299)" class="w-full smart-btn bg-gradient-to-r from-red-500 to-pink-500 text-white py-4 rounded-xl hover:from-red-600 hover:to-pink-600 transition font-bold text-lg shadow-lg">
+                        Book Test
+                    </button>
+                </div>
+
+                <!-- Blood Sugar Test -->
+                <div class="test-card rounded-3xl p-8 card-hover">
+                    <div class="relative mb-6">
+                        <div class="w-20 h-20 bg-gradient-to-br from-orange-500 to-red-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-cube text-white text-2xl"></i>
+                        </div>
+                        <div class="test-price absolute top-0 right-0 px-4 py-2 rounded-full text-lg transform rotate-12">
+                            ₹199
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-black text-gray-800 mb-3 text-center">Blood Sugar Test</h3>
+                    <p class="text-gray-600 mb-6 text-center">Quick glucose level checking for diabetes screening</p>
+                    <div class="space-y-3 mb-6">
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-green-500 mr-3"></i>
+                            <span class="text-gray-700 font-medium">Fasting Blood Sugar</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-green-500 mr-3"></i>
+                            <span class="text-gray-700 font-medium">Random Blood Sugar</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-green-500 mr-3"></i>
+                            <span class="text-gray-700 font-medium">Instant Results</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-green-500 mr-3"></i>
+                            <span class="text-gray-700 font-medium">Free Consultation</span>
+                        </div>
+                    </div>
+                    <button onclick="openBookingModal('Blood Sugar Test', 199)" class="w-full smart-btn bg-gradient-to-r from-orange-500 to-red-500 text-white py-4 rounded-xl hover:from-orange-600 hover:to-red-600 transition font-bold text-lg shadow-lg">
+                        Book Test
+                    </button>
+                </div>
+
+                <!-- Diabetic Panel -->
+                <div class="test-card rounded-3xl p-8 card-hover">
+                    <div class="relative mb-6">
+                        <div class="w-20 h-20 bg-gradient-to-br from-purple-500 to-indigo-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-chart-line text-white text-2xl"></i>
+                        </div>
+                        <div class="test-price absolute top-0 right-0 px-4 py-2 rounded-full text-lg transform rotate-12">
+                            ₹799
+                        </div>
+                        <div class="bg-yellow-400 text-black text-xs font-bold px-3 py-1 rounded-full absolute -top-2 left-4">
+                            POPULAR
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-black text-gray-800 mb-3 text-center">Diabetic Panel</h3>
+                    <p class="text-gray-600 mb-6 text-center">Complete diabetes screening and monitoring package</p>
+                    <div class="space-y-3 mb-6">
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-green-500 mr-3"></i>
+                            <span class="text-gray-700 font-medium">HbA1c Test</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-green-500 mr-3"></i>
+                            <span class="text-gray-700 font-medium">Fasting & PP Sugar</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-green-500 mr-3"></i>
+                            <span class="text-gray-700 font-medium">Insulin Levels</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-green-500 mr-3"></i>
+                            <span class="text-gray-700 font-medium">Doctor Consultation</span>
+                        </div>
+                    </div>
+                    <button onclick="openBookingModal('Diabetic Panel', 799)" class="w-full smart-btn bg-gradient-to-r from-purple-500 to-indigo-500 text-white py-4 rounded-xl hover:from-purple-600 hover:to-indigo-600 transition font-bold text-lg shadow-lg">
+                        Book Test
+                    </button>
+                </div>
+
+                <!-- Liver Function Test -->
+                <div class="test-card rounded-3xl p-8 card-hover">
+                    <div class="relative mb-6">
+                        <div class="w-20 h-20 bg-gradient-to-br from-green-500 to-teal-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-leaf text-white text-2xl"></i>
+                        </div>
+                        <div class="test-price absolute top-0 right-0 px-4 py-2 rounded-full text-lg transform rotate-12">
+                            ₹599
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-black text-gray-800 mb-3 text-center">Liver Function Test</h3>
+                    <p class="text-gray-600 mb-6 text-center">Comprehensive liver health assessment</p>
+                    <div class="space-y-3 mb-6">
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-green-500 mr-3"></i>
+                            <span class="text-gray-700 font-medium">ALT & AST</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-green-500 mr-3"></i>
+                            <span class="text-gray-700 font-medium">Bilirubin Levels</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-green-500 mr-3"></i>
+                            <span class="text-gray-700 font-medium">Protein Levels</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-green-500 mr-3"></i>
+                            <span class="text-gray-700 font-medium">Same Day Report</span>
+                        </div>
+                    </div>
+                    <button onclick="openBookingModal('Liver Function Test', 599)" class="w-full smart-btn bg-gradient-to-r from-green-500 to-teal-500 text-white py-4 rounded-xl hover:from-green-600 hover:to-teal-600 transition font-bold text-lg shadow-lg">
+                        Book Test
+                    </button>
+                </div>
+
+                <!-- Kidney Function Test -->
+                <div class="test-card rounded-3xl p-8 card-hover">
+                    <div class="relative mb-6">
+                        <div class="w-20 h-20 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-filter text-white text-2xl"></i>
+                        </div>
+                        <div class="test-price absolute top-0 right-0 px-4 py-2 rounded-full text-lg transform rotate-12">
+                            ₹499
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-black text-gray-800 mb-3 text-center">Kidney Function Test</h3>
+                    <p class="text-gray-600 mb-6 text-center">Essential kidney health screening</p>
+                    <div class="space-y-3 mb-6">
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-green-500 mr-3"></i>
+                            <span class="text-gray-700 font-medium">Creatinine</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-green-500 mr-3"></i>
+                            <span class="text-gray-700 font-medium">BUN (Urea)</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-green-500 mr-3"></i>
+                            <span class="text-gray-700 font-medium">Uric Acid</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-green-500 mr-3"></i>
+                            <span class="text-gray-700 font-medium">Expert Analysis</span>
+                        </div>
+                    </div>
+                    <button onclick="openBookingModal('Kidney Function Test', 499)" class="w-full smart-btn bg-gradient-to-r from-blue-500 to-cyan-500 text-white py-4 rounded-xl hover:from-blue-600 hover:to-cyan-600 transition font-bold text-lg shadow-lg">
+                        Book Test
+                    </button>
+                </div>
+
+                <!-- Thyroid Test -->
+                <div class="test-card rounded-3xl p-8 card-hover">
+                    <div class="relative mb-6">
+                        <div class="w-20 h-20 bg-gradient-to-br from-pink-500 to-rose-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-dna text-white text-2xl"></i>
+                        </div>
+                        <div class="test-price absolute top-0 right-0 px-4 py-2 rounded-full text-lg transform rotate-12">
+                            ₹399
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-black text-gray-800 mb-3 text-center">Thyroid Function Test</h3>
+                    <p class="text-gray-600 mb-6 text-center">Complete thyroid hormone analysis</p>
+                    <div class="space-y-3 mb-6">
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-green-500 mr-3"></i>
+                            <span class="text-gray-700 font-medium">TSH Level</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-green-500 mr-3"></i>
+                            <span class="text-gray-700 font-medium">T3 & T4 Levels</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-green-500 mr-3"></i>
+                            <span class="text-gray-700 font-medium">Hormone Analysis</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-green-500 mr-3"></i>
+                            <span class="text-gray-700 font-medium">Digital Report</span>
+                        </div>
+                    </div>
+                    <button onclick="openBookingModal('Thyroid Function Test', 399)" class="w-full smart-btn bg-gradient-to-r from-pink-500 to-rose-500 text-white py-4 rounded-xl hover:from-pink-600 hover:to-rose-600 transition font-bold text-lg shadow-lg">
+                        Book Test
+                    </button>
+                </div>
+
+                <!-- Lipid Profile -->
+                <div class="test-card rounded-3xl p-8 card-hover">
+                    <div class="relative mb-6">
+                        <div class="w-20 h-20 bg-gradient-to-br from-yellow-500 to-orange-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-heartbeat text-white text-2xl"></i>
+                        </div>
+                        <div class="test-price absolute top-0 right-0 px-4 py-2 rounded-full text-lg transform rotate-12">
+                            ₹449
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-black text-gray-800 mb-3 text-center">Lipid Profile</h3>
+                    <p class="text-gray-600 mb-6 text-center">Cholesterol and heart health assessment</p>
+                    <div class="space-y-3 mb-6">
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-green-500 mr-3"></i>
+                            <span class="text-gray-700 font-medium">Total Cholesterol</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-green-500 mr-3"></i>
+                            <span class="text-gray-700 font-medium">HDL & LDL</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-green-500 mr-3"></i>
+                            <span class="text-gray-700 font-medium">Triglycerides</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-green-500 mr-3"></i>
+                            <span class="text-gray-700 font-medium">Risk Assessment</span>
+                        </div>
+                    </div>
+                    <button onclick="openBookingModal('Lipid Profile', 449)" class="w-full smart-btn bg-gradient-to-r from-yellow-500 to-orange-500 text-white py-4 rounded-xl hover:from-yellow-600 hover:to-orange-600 transition font-bold text-lg shadow-lg">
+                        Book Test
+                    </button>
+                </div>
+
+                <!-- Hemoglobin Test -->
+                <div class="test-card rounded-3xl p-8 card-hover">
+                    <div class="relative mb-6">
+                        <div class="w-20 h-20 bg-gradient-to-br from-red-600 to-red-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-circle text-white text-2xl"></i>
+                        </div>
+                        <div class="test-price absolute top-0 right-0 px-4 py-2 rounded-full text-lg transform rotate-12">
+                            ₹149
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-black text-gray-800 mb-3 text-center">Hemoglobin Test</h3>
+                    <p class="text-gray-600 mb-6 text-center">Quick anemia and iron deficiency check</p>
+                    <div class="space-y-3 mb-6">
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-green-500 mr-3"></i>
+                            <span class="text-gray-700 font-medium">Hb Levels</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-green-500 mr-3"></i>
+                            <span class="text-gray-700 font-medium">Iron Status</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-green-500 mr-3"></i>
+                            <span class="text-gray-700 font-medium">Instant Results</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-green-500 mr-3"></i>
+                            <span class="text-gray-700 font-medium">Quick Report</span>
+                        </div>
+                    </div>
+                    <button onclick="openBookingModal('Hemoglobin Test', 149)" class="w-full smart-btn bg-gradient-to-r from-red-600 to-red-500 text-white py-4 rounded-xl hover:from-red-700 hover:to-red-600 transition font-bold text-lg shadow-lg">
+                        Book Test
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Health Packages Section -->
+    <section class="py-24 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-20">
+                <div class="inline-flex items-center bg-green-100 text-green-800 px-6 py-3 rounded-full mb-6">
+                    <i class="fas fa-gift mr-3"></i>
+                    <span class="font-bold text-lg">Combo Packages</span>
+                </div>
+                <h2 class="text-5xl font-black text-gray-800 mb-6">Money-Saving Health Packages</h2>
+                <p class="text-2xl text-gray-600 max-w-4xl mx-auto font-medium">Get multiple tests at discounted rates with our specially designed health packages</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                <!-- Basic Health Package -->
+                <div class="bg-white rounded-3xl p-10 shadow-2xl card-hover bihar-accent">
+                    <div class="text-center mb-8">
+                        <div class="w-24 h-24 bg-gradient-to-br from-blue-500 to-purple-500 rounded-full flex items-center justify-center mx-auto mb-6">
+                            <i class="fas fa-shield-alt text-white text-3xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-black text-gray-800 mb-4">Basic Health Package</h3>
+                        <div class="bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-2xl p-6 mb-6">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <span class="text-4xl font-black">₹999</span>
+                                    <span class="text-lg opacity-75 line-through ml-3">₹1,899</span>
+                                </div>
+                                <span class="bg-white bg-opacity-20 px-4 py-2 rounded-full text-lg font-bold">47% OFF</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="space-y-4 mb-8">
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-green-500 mr-4 text-xl"></i>
+                            <span class="text-gray-700 font-medium text-lg">Complete Blood Count (CBC)</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-green-500 mr-4 text-xl"></i>
+                            <span class="text-gray-700 font-medium text-lg">Blood Sugar Test</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-green-500 mr-4 text-xl"></i>
+                            <span class="text-gray-700 font-medium text-lg">Lipid Profile</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-green-500 mr-4 text-xl"></i>
+                            <span class="text-gray-700 font-medium text-lg">Hemoglobin Test</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-green-500 mr-4 text-xl"></i>
+                            <span class="text-gray-700 font-medium text-lg">Free Home Collection</span>
+                        </div>
+                    </div>
+                    <button onclick="openBookingModal('Basic Health Package', 999)" class="w-full smart-btn bg-gradient-to-r from-blue-500 to-purple-500 text-white py-5 rounded-2xl hover:from-blue-600 hover:to-purple-600 transition font-bold text-xl shadow-xl">
+                        Book Package
+                    </button>
+                </div>
+
+                <!-- Comprehensive Package -->
+                <div class="bg-white rounded-3xl p-10 shadow-2xl card-hover bihar-accent relative">
+                    <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-yellow-400 to-orange-400 text-black px-6 py-2 rounded-full font-black text-lg">
+                        MOST POPULAR
+                    </div>
+                    <div class="text-center mb-8">
+                        <div class="w-24 h-24 bg-gradient-to-br from-green-500 to-teal-500 rounded-full flex items-center justify-center mx-auto mb-6">
+                            <i class="fas fa-star text-white text-3xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-black text-gray-800 mb-4">Comprehensive Package</h3>
+                        <div class="bg-gradient-to-r from-green-500 to-teal-500 text-white rounded-2xl p-6 mb-6">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <span class="text-4xl font-black">₹1,799</span>
+                                    <span class="text-lg opacity-75 line-through ml-3">₹3,499</span>
+                                </div>
+                                <span class="bg-white bg-opacity-20 px-4 py-2 rounded-full text-lg font-bold">49% OFF</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="space-y-4 mb-8">
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-green-500 mr-4 text-xl"></i>
+                            <span class="text-gray-700 font-medium text-lg">Diabetic Panel</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-green-500 mr-4 text-xl"></i>
+                            <span class="text-gray-700 font-medium text-lg">Liver Function Test</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-green-500 mr-4 text-xl"></i>
+                            <span class="text-gray-700 font-medium text-lg">Kidney Function Test</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-green-500 mr-4 text-xl"></i>
+                            <span class="text-gray-700 font-medium text-lg">Thyroid Function Test</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-green-500 mr-4 text-xl"></i>
+                            <span class="text-gray-700 font-medium text-lg">Doctor Consultation</span>
+                        </div>
+                    </div>
+                    <button onclick="openBookingModal('Comprehensive Package', 1799)" class="w-full smart-btn bg-gradient-to-r from-green-500 to-teal-500 text-white py-5 rounded-2xl hover:from-green-600 hover:to-teal-600 transition font-bold text-xl shadow-xl glow-effect">
+                        Book Package
+                    </button>
+                </div>
+
+                <!-- Premium Package -->
+                <div class="bg-white rounded-3xl p-10 shadow-2xl card-hover bihar-accent">
+                    <div class="text-center mb-8">
+                        <div class="w-24 h-24 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center mx-auto mb-6">
+                            <i class="fas fa-crown text-white text-3xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-black text-gray-800 mb-4">Premium Package</h3>
+                        <div class="bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-2xl p-6 mb-6">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <span class="text-4xl font-black">₹2,499</span>
+                                    <span class="text-lg opacity-75 line-through ml-3">₹4,999</span>
+                                </div>
+                                <span class="bg-white bg-opacity-20 px-4 py-2 rounded-full text-lg font-bold">50% OFF</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="space-y-4 mb-8">
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-green-500 mr-4 text-xl"></i>
+                            <span class="text-gray-700 font-medium text-lg">All Basic + Comprehensive Tests</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-green-500 mr-4 text-xl"></i>
+                            <span class="text-gray-700 font-medium text-lg">Vitamin D Test</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-green-500 mr-4 text-xl"></i>
+                            <span class="text-gray-700 font-medium text-lg">Complete Urine Analysis</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-green-500 mr-4 text-xl"></i>
+                            <span class="text-gray-700 font-medium text-lg">Specialist Consultation</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-green-500 mr-4 text-xl"></i>
+                            <span class="text-gray-700 font-medium text-lg">Follow-up Support</span>
+                        </div>
+                    </div>
+                    <button onclick="openBookingModal('Premium Package', 2499)" class="w-full smart-btn bg-gradient-to-r from-purple-500 to-pink-500 text-white py-5 rounded-2xl hover:from-purple-600 hover:to-pink-600 transition font-bold text-xl shadow-xl">
+                        Book Package
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us -->
+    <section class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-20">
+                <div class="inline-flex items-center bg-yellow-100 text-yellow-800 px-6 py-3 rounded-full mb-6">
+                    <i class="fas fa-star mr-3"></i>
+                    <span class="font-bold text-lg">Why Choose Us</span>
+                </div>
+                <h2 class="text-5xl font-black text-gray-800 mb-6">Bihar's Most Trusted Lab</h2>
+                <p class="text-2xl text-gray-600 max-w-4xl mx-auto font-medium">Advanced technology meets expert care across all districts of Bihar</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-20">
+                <div class="text-center group">
+                    <div class="feature-icon w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-125 transition-all duration-500">
+                        <i class="fas fa-home text-white text-3xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-black text-gray-800 mb-4">Free Home Collection</h3>
+                    <p class="text-gray-600 text-lg font-medium leading-relaxed">Sample collection at your doorstep across Patna, Gaya, Muzaffarpur, Darbhanga, and all Bihar districts</p>
+                </div>
+
+                <div class="text-center group">
+                    <div class="feature-icon w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-125 transition-all duration-500">
+                        <i class="fas fa-clock text-white text-3xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-black text-gray-800 mb-4">Same Day Reports</h3>
+                    <p class="text-gray-600 text-lg font-medium leading-relaxed">Quick and accurate test results delivered within 6-12 hours with digital reports via WhatsApp</p>
+                </div>
+
+                <div class="text-center group">
+                    <div class="feature-icon w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-125 transition-all duration-500">
+                        <i class="fas fa-user-md text-white text-3xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-black text-gray-800 mb-4">Expert Doctors</h3>
+                    <p class="text-gray-600 text-lg font-medium leading-relaxed">Consultations with experienced pathologists and specialists from top medical colleges</p>
+                </div>
+
+                <div class="text-center group">
+                    <div class="feature-icon w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-125 transition-all duration-500">
+                        <i class="fas fa-shield-alt text-white text-3xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-black text-gray-800 mb-4">NABL Certified</h3>
+                    <p class="text-gray-600 text-lg font-medium leading-relaxed">Government certified laboratory ensuring highest quality standards and 99.9% accurate results</p>
+                </div>
+            </div>
+
+            <div class="bg-gradient-to-br from-blue-50 to-purple-50 rounded-3xl p-12 glow-effect">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <h3 class="text-4xl font-black text-gray-800 mb-8">Advanced Medical Technology for Bihar</h3>
+                        <p class="text-gray-600 mb-10 text-xl font-medium leading-relaxed">State-of-the-art laboratory equipment and automated systems ensure precise diagnostics and reliable results for all basic health testing needs across Bihar state.</p>
+                        <div class="grid grid-cols-2 gap-8">
+                            <div class="bg-white p-8 rounded-2xl shadow-xl bihar-accent">
+                                <h4 class="text-4xl font-black text-blue-600 mb-3">25+</h4>
+                                <p class="text-gray-600 font-bold text-lg">Basic Tests Available</p>
+                            </div>
+                            <div class="bg-white p-8 rounded-2xl shadow-xl bihar-accent">
+                                <h4 class="text-4xl font-black text-green-600 mb-3">15+</h4>
+                                <p class="text-gray-600 font-bold text-lg">Combo Packages</p>
+                            </div>
+                            <div class="bg-white p-8 rounded-2xl shadow-xl bihar-accent">
+                                <h4 class="text-4xl font-black text-purple-600 mb-3">99.9%</h4>
+                                <p class="text-gray-600 font-bold text-lg">Accuracy Rate</p>
+                            </div>
+                            <div class="bg-white p-8 rounded-2xl shadow-xl bihar-accent">
+                                <h4 class="text-4xl font-black text-red-600 mb-3">24/7</h4>
+                                <p class="text-gray-600 font-bold text-lg">Support Available</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="relative">
+                        <img src="https://www.indushealthplus.com/front/media/article_img/icons/health-screening.jpg" alt="Advanced Medical Technology" class="rounded-3xl shadow-2xl w-full h-[500px] object-cover">
+                        <div class="absolute -top-6 -right-6 bg-gradient-to-r from-orange-500 to-red-500 text-white p-6 rounded-2xl shadow-2xl">
+                            <div class="text-center">
+                                <p class="font-black text-xl">Bihar's #1</p>
+                                <p class="text-sm font-medium">Healthcare Lab</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="py-24 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-20">
+                <div class="inline-flex items-center bg-pink-100 text-pink-800 px-6 py-3 rounded-full mb-6">
+                    <i class="fas fa-heart mr-3"></i>
+                    <span class="font-bold text-lg">Patient Reviews</span>
+                </div>
+                <h2 class="text-5xl font-black text-gray-800 mb-6">Happy Bihar Families</h2>
+                <p class="text-2xl text-gray-600 font-medium">Real experiences from thousands of satisfied patients across Bihar</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                <div class="testimonial-card p-10 rounded-3xl shadow-xl card-hover">
+                    <div class="flex mb-6">
+                        <i class="fas fa-star text-yellow-500 text-xl"></i>
+                        <i class="fas fa-star text-yellow-500 text-xl"></i>
+                        <i class="fas fa-star text-yellow-500 text-xl"></i>
+                        <i class="fas fa-star text-yellow-500 text-xl"></i>
+                        <i class="fas fa-star text-yellow-500 text-xl"></i>
+                    </div>
+                    <p class="text-gray-600 mb-8 text-lg font-medium leading-relaxed">"Blood sugar test bahut jaldi kar diya. Ghar pe collection aur same day report mil gaya. Price bhi reasonable hai. Family ke sabka test yaha karvaya hai."</p>
+                    <div class="flex items-center">
+                        <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mr-4">
+                            <span class="text-blue-600 font-black text-xl">RS</span>
+                        </div>
+                        <div>
+                            <h4 class="font-black text-gray-800 text-xl">Rajesh Singh</h4>
+                            <p class="text-gray-600 font-medium">42 yrs, Patna, Bihar</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card p-10 rounded-3xl shadow-xl card-hover">
+                    <div class="flex mb-6">
+                        <i class="fas fa-star text-yellow-500 text-xl"></i>
+                        <i class="fas fa-star text-yellow-500 text-xl"></i>
+                        <i class="fas fa-star text-yellow-500 text-xl"></i>
+                        <i class="fas fa-star text-yellow-500 text-xl"></i>
+                        <i class="fas fa-star text-yellow-500 text-xl"></i>
+                    </div>
+                    <p class="text-gray-600 mb-8 text-lg font-medium leading-relaxed">"Diabetic panel test karvaya tha. Doctor consultation bhi free me mila. Reports bilkul accurate the. Muzaffarpur me itni achi service milegi nahi socha tha."</p>
+                    <div class="flex items-center">
+                        <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mr-4">
+                            <span class="text-green-600 font-black text-xl">PK</span>
+                        </div>
+                        <div>
+                            <h4 class="font-black text-gray-800 text-xl">Priya Kumari</h4>
+                            <p class="text-gray-600 font-medium">38 yrs, Muzaffarpur, Bihar</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card p-10 rounded-3xl shadow-xl card-hover">
+                    <div class="flex mb-6">
+                        <i class="fas fa-star text-yellow-500 text-xl"></i>
+                        <i class="fas fa-star text-yellow-500 text-xl"></i>
+                        <i class="fas fa-star text-yellow-500 text-xl"></i>
+                        <i class="fas fa-star text-yellow-500 text-xl"></i>
+                        <i class="fas fa-star text-yellow-500 text-xl"></i>
+                    </div>
+                    <p class="text-gray-600 mb-8 text-lg font-medium leading-relaxed">"Complete basic package karvaya. CBC, sugar, thyroid sab test included the. WhatsApp pe report bhi mil gaya. Staff bahut polite hai. Highly recommended!"</p>
+                    <div class="flex items-center">
+                        <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mr-4">
+                            <span class="text-purple-600 font-black text-xl">AK</span>
+                        </div>
+                        <div>
+                            <h4 class="font-black text-gray-800 text-xl">Amit Kumar</h4>
+                            <p class="text-gray-600 font-medium">35 yrs, Gaya, Bihar</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact & Footer -->
+    <footer class="bg-gray-800 text-white py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+                <div>
+                    <div class="flex items-center mb-8">
+                        <i class="fas fa-flask text-4xl text-blue-400 mr-4"></i>
+                        <div>
+                            <h3 class="text-3xl font-black">Arvix Laboratory</h3>
+                            <p class="text-blue-300 font-medium">Bihar's Healthcare Leader</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 mb-8 text-lg font-medium leading-relaxed">Your trusted partner for quick, accurate, and affordable basic health tests across Bihar. Modern technology meets expert care.</p>
+                    <div class="flex space-x-6">
+                        <i class="fab fa-facebook-f text-blue-400 text-2xl hover:text-blue-300 cursor-pointer transition"></i>
+                        <i class="fab fa-twitter text-blue-400 text-2xl hover:text-blue-300 cursor-pointer transition"></i>
+                        <i class="fab fa-instagram text-blue-400 text-2xl hover:text-blue-300 cursor-pointer transition"></i>
+                        <i class="fab fa-linkedin-in text-blue-400 text-2xl hover:text-blue-300 cursor-pointer transition"></i>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="text-xl font-black mb-8 text-blue-300">Quick Links</h4>
+                    <ul class="space-y-4">
+                        <li><a href="#tests" class="text-gray-300 hover:text-white transition text-lg font-medium">Health Tests</a></li>
+                        <li><a href="#packages" class="text-gray-300 hover:text-white transition text-lg font-medium">Test Packages</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition text-lg font-medium">Home Collection</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition text-lg font-medium">About Us</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition text-lg font-medium">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-xl font-black mb-8 text-blue-300">Popular Tests</h4>
+                    <ul class="space-y-4">
+                        <li><a href="#" class="text-gray-300 hover:text-white transition text-lg font-medium">Blood Sugar Test</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition text-lg font-medium">CBC Test</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition text-lg font-medium">Diabetic Panel</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition text-lg font-medium">Thyroid Test</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition text-lg font-medium">Lipid Profile</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-xl font-black mb-8 text-blue-300">Contact Info</h4>
+                    <div class="space-y-6">
+                        <div class="flex items-center">
+                            <i class="fas fa-map-marker-alt text-blue-400 mr-4 text-xl"></i>
+                            <span class="text-gray-300 font-medium text-lg">123 Health Street, Boring Road, Patna, Bihar 800001</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-phone text-blue-400 mr-4 text-xl"></i>
+                            <a href="tel:7217851872" class="text-gray-300 hover:text-yellow-300 transition font-bold text-xl">+91 7217851872</a>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-envelope text-blue-400 mr-4 text-xl"></i>
+                            <span class="text-gray-300 font-medium text-lg">info@arvixlab.com</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-clock text-blue-400 mr-4 text-xl"></i>
+                            <span class="text-gray-300 font-medium text-lg">Mon - Sat: 6:00 AM - 10:00 PM</span>
+                        </div>
+                        <div class="bg-gradient-to-r from-green-600 to-blue-600 p-4 rounded-xl mt-6">
+                            <p class="text-white font-bold text-center text-lg">Serving All 38 Bihar Districts</p>
+                            <p class="text-green-100 text-center font-medium">Patna • Gaya • Muzaffarpur • Darbhanga • Bhagalpur • All Districts</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-700 mt-16 pt-10">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <p class="text-gray-400 mb-4 md:mb-0 text-lg font-medium">&copy; 2024 Arvix Laboratory. All rights reserved. | Privacy Policy | Terms of Service</p>
+                    <p class="text-gray-400 font-medium">NABL Accredited Laboratory | License No: BH/LAB/2024/001</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Booking Modal -->
+    <div id="bookingModal" class="modal">
+        <div class="modal-content">
+            <div class="gradient-bg-alt text-white p-8 rounded-t-xl">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <h2 class="text-3xl font-black mb-3">Book Your Test</h2>
+                        <p class="text-blue-100 text-xl font-medium" id="modalTestName">Test Details</p>
+                    </div>
+                    <button onclick="closeBookingModal()" class="text-white hover:text-red-300 transition">
+                        <i class="fas fa-times text-3xl"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="p-10" id="formContainer">
+                <form id="bookingForm">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700 mb-3">Full Name *</label>
+                            <input type="text" id="fullName" required class="form-input w-full p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-lg font-medium" placeholder="Enter your full name">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700 mb-3">Mobile Number *</label>
+                            <input type="tel" id="mobileNumber" required pattern="[0-9]{10}" class="form-input w-full p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-lg font-medium" placeholder="Enter 10-digit mobile number">
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700 mb-3">Age *</label>
+                            <input type="number" id="age" required min="1" max="120" class="form-input w-full p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-lg font-medium" placeholder="Enter your age">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700 mb-3">Gender *</label>
+                            <select id="gender" required class="form-input w-full p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-lg font-medium">
+                                <option value="">Select Gender</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-8">
+                        <label class="block text-sm font-bold text-gray-700 mb-3">Complete Address *</label>
+                        <textarea id="address" required rows="4" class="form-input w-full p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-lg font-medium" placeholder="Enter your complete address in Bihar"></textarea>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700 mb-3">District *</label>
+                            <select id="district" required class="form-input w-full p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-lg font-medium">
+                                <option value="">Select District</option>
+                                <option value="Patna">Patna</option>
+                                <option value="Gaya">Gaya</option>
+                                <option value="Muzaffarpur">Muzaffarpur</option>
+                                <option value="Darbhanga">Darbhanga</option>
+                                <option value="Bhagalpur">Bhagalpur</option>
+                                <option value="Begusarai">Begusarai</option>
+                                <option value="Chapra">Chapra</option>
+                                <option value="Purnia">Purnia</option>
+                                <option value="Saharsa">Saharsa</option>
+                                <option value="Motihari">Motihari</option>
+                                <option value="Arrah">Arrah</option>
+                                <option value="Katihar">Katihar</option>
+                                <option value="Sasaram">Sasaram</option>
+                                <option value="Hajipur">Hajipur</option>
+                                <option value="Munger">Munger</option>
+                                <option value="Siwan">Siwan</option>
+                                <option value="Bettiah">Bettiah</option>
+                                <option value="Madhubani">Madhubani</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700 mb-3">Preferred Time *</label>
+                            <select id="preferredTime" required class="form-input w-full p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-lg font-medium">
+                                <option value="">Select Time</option>
+                                <option value="Morning (8 AM - 12 PM)">Morning (8 AM - 12 PM)</option>
+                                <option value="Afternoon (12 PM - 4 PM)">Afternoon (12 PM - 4 PM)</option>
+                                <option value="Evening (4 PM - 8 PM)">Evening (4 PM - 8 PM)</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-8">
+                        <label class="flex items-center">
+                            <input type="checkbox" id="agreeTerms" required class="mr-4 w-5 h-5 text-blue-600">
+                            <span class="font-medium text-gray-700 text-lg">I agree to the <a href="#" class="text-blue-600 hover:text-blue-800 font-bold">Terms & Conditions</a> and <a href="#" class="text-blue-600 hover:text-blue-800 font-bold">Privacy Policy</a></span>
+                        </label>
+                    </div>
+                    
+                    <div class="bg-blue-50 p-6 rounded-2xl mb-8" id="testSummary">
+                        <h3 class="font-black text-gray-800 mb-4 text-xl">Test Summary</h3>
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="text-gray-600 font-medium text-xl" id="summaryTestName">Test Name</span>
+                            <span class="text-3xl font-black text-blue-600" id="summaryPrice">₹0</span>
+                        </div>
+                        <div class="space-y-2">
+                            <p class="text-gray-600 font-medium">✓ Free home sample collection in Bihar</p>
+                            <p class="text-gray-600 font-medium">✓ Digital reports via WhatsApp</p>
+                            <p class="text-gray-600 font-medium">✓ Same day results</p>
+                            <p class="text-gray-600 font-medium">✓ Expert consultation included</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex flex-col sm:flex-row gap-6">
+                        <button type="button" onclick="closeBookingModal()" class="flex-1 bg-gray-300 text-gray-700 py-5 px-8 rounded-2xl hover:bg-gray-400 transition font-bold text-xl">
+                            Cancel
+                        </button>
+                        <button type="submit" class="flex-1 smart-btn bg-gradient-to-r from-blue-600 to-purple-600 text-white py-5 px-8 rounded-2xl hover:from-blue-700 hover:to-purple-700 transition font-bold text-xl shadow-xl">
+                            <i class="fas fa-calendar-check mr-3"></i>
+                            Book Test Now
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Booking Modal Functions
+        function openBookingModal(testName, price) {
+            const modal = document.getElementById('bookingModal');
+            const modalTestName = document.getElementById('modalTestName');
+            const summaryTestName = document.getElementById('summaryTestName');
+            const summaryPrice = document.getElementById('summaryPrice');
+            
+            modalTestName.textContent = testName;
+            summaryTestName.textContent = testName;
+            summaryPrice.textContent = '₹' + price.toLocaleString();
+            
+            modal.classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeBookingModal() {
+            const modal = document.getElementById('bookingModal');
+            modal.classList.remove('show');
+            document.body.style.overflow = 'auto';
+            document.getElementById('bookingForm').reset();
+        }
+        
+        // Smooth scroll to tests section
+        function scrollToTests() {
+            document.getElementById('tests').scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+        
+        // Form Submission
+        document.getElementById('bookingForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = {
+                fullName: document.getElementById('fullName').value,
+                mobileNumber: document.getElementById('mobileNumber').value,
+                age: document.getElementById('age').value,
+                gender: document.getElementById('gender').value,
+                address: document.getElementById('address').value,
+                district: document.getElementById('district').value,
+                preferredTime: document.getElementById('preferredTime').value,
+                testName: document.getElementById('modalTestName').textContent,
+                testPrice: document.getElementById('summaryPrice').textContent
+            };
+            
+            // Validate mobile number
+            const mobilePattern = /^[0-9]{10}$/;
+            if (!mobilePattern.test(formData.mobileNumber)) {
+                alert('कृपया 10 अंकों का वैध मोबाइल नंबर डालें');
+                return;
+            }
+            
+            // Show success message
+            showSuccessMessage(formData);
+        });
+        
+        function showSuccessMessage(formData) {
+            const formContainer = document.getElementById('formContainer');
+            formContainer.innerHTML = `
+                <div class="text-center py-12">
+                    <div class="success-message w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-8">
+                        <i class="fas fa-check text-white text-4xl"></i>
+                    </div>
+                    <h3 class="text-3xl font-black text-gray-800 mb-6">बुकिंग सफल!</h3>
+                    <p class="text-gray-600 mb-8 text-xl font-medium">धन्यवाद ${formData.fullName}! आपकी टेस्ट बुकिंग सफलतापूर्वक हो गई है।</p>
+                    <div class="bg-blue-50 p-8 rounded-2xl mb-8 text-left">
+                        <h4 class="font-black text-gray-800 mb-4 text-xl">Booking Details:</h4>
+                        <div class="space-y-3">
+                            <p class="text-gray-600 font-medium text-lg"><strong>Test:</strong> ${formData.testName}</p>
+                            <p class="text-gray-600 font-medium text-lg"><strong>Price:</strong> ${formData.testPrice}</p>
+                            <p class="text-gray-600 font-medium text-lg"><strong>Mobile:</strong> ${formData.mobileNumber}</p>
+                            <p class="text-gray-600 font-medium text-lg"><strong>District:</strong> ${formData.district}</p>
+                            <p class="text-gray-600 font-medium text-lg"><strong>Time:</strong> ${formData.preferredTime}</p>
+                        </div>
+                    </div>
+                    <div class="bg-yellow-50 p-6 rounded-2xl mb-8">
+                        <p class="text-yellow-800 font-medium text-lg">
+                            <i class="fas fa-info-circle mr-3"></i>
+                            हमारी टीम 1 घंटे के अंदर <strong>${formData.mobileNumber}</strong> पर संपर्क करेगी और घर पर सैंपल कलेक्शन का समय तय करेगी।
+                        </p>
+                    </div>
+                    <div class="flex flex-col sm:flex-row gap-6">
+                        <button onclick="closeBookingModal()" class="flex-1 smart-btn bg-gradient-to-r from-blue-600 to-purple-600 text-white py-4 px-8 rounded-2xl hover:from-blue-700 hover:to-purple-700 transition font-bold text-xl">
+                            बंद करें
+                        </button>
+                        <a href="tel:7217851872" class="flex-1 smart-btn bg-green-600 text-white py-4 px-8 rounded-2xl hover:bg-green-700 transition font-bold text-xl text-center">
+                            <i class="fas fa-phone mr-3"></i>अभी कॉल करें
+                        </a>
+                    </div>
+                </div>
+            `;
+        }
+        
+        // Close modal when clicking outside
+        document.getElementById('bookingModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeBookingModal();
+            }
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+        
+        // Enhanced animations on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all cards for animation
+        document.querySelectorAll('.test-card, .testimonial-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(50px)';
+            card.style.transition = 'all 0.6s ease-out';
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>
